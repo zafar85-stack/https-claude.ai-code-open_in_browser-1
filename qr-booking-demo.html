@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browser Booking Link &amp; QR Payload Generator</title>
+</head>
+<body>
+  <h1>Booking Link Generator</h1>
 
+  <label>
+    Service:
+    <input id="service" type="text" value="Standard Session" />
+  </label>
+  <br /><br />
+
+  <label>
+    Time Slot:
+    <input id="slot" type="text" value="2026-11-21 15:00" />
+  </label>
+  <br /><br />
+
+  <button id="generate" type="button">Generate Booking Payload</button>
+  <pre id="output"></pre>
+
+  <script>
+    const btn = document.getElementById("generate");
+    const out = document.getElementById("output");
+
+    btn.addEventListener("click", () => {
+      const service = document.getElementById("service").value.trim();
+      const slot = document.getElementById("slot").value.trim();
+
+      const params = new URLSearchParams({ service, slot });
+      const bookingUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+
+      out.textContent = JSON.stringify({ bookingUrl, service, slot }, null, 2);
+    });
+  </script>
+</body>
+</html>
